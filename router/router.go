@@ -12,10 +12,10 @@ func GetRouter() http.Handler {
 
 	router.HandleFunc("/v1/tasks", handlers.HandleGetAllTasks).Methods("GET", "OPTIONS")
 	router.HandleFunc("/v1/tasks", handlers.HandleCreateNewTask).Methods("POST", "OPTIONS")
-	router.HandleFunc("/v1/task", handlers.HandleGetTask).Methods("GET", "OPTIONS")
-	router.HandleFunc("/v1/toggleComplete", handlers.HandleToggleComplete).Methods("PUT", "OPTIONS")
-	router.HandleFunc("/v1/deleteTask", handlers.HandleDeleteTask).Methods("DELETE", "OPTIONS")
-	router.HandleFunc("/v1/updateTask", handlers.HandleUpdateTask).Methods("PUT", "OPTIONS")
+	router.HandleFunc("/v1/tasks/{id}", handlers.HandleGetTask).Methods("GET", "OPTIONS")
+	router.HandleFunc("/v1/toggleComplete/{id}", handlers.HandleToggleComplete).Methods("PUT", "OPTIONS")
+	router.HandleFunc("/v1/deleteTask/{id}", handlers.HandleDeleteTask).Methods("DELETE", "OPTIONS")
+	router.HandleFunc("/v1/updateTask/{id}", handlers.HandleUpdateTask).Methods("PUT", "OPTIONS")
 	router.HandleFunc("/v1/deleteAllTasks", handlers.HandleDeleteAllTasks).Methods("DELETE", "OPTIONS")
 
 	return router

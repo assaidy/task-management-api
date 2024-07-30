@@ -19,25 +19,25 @@ The following API endpoints are available:
     - **Failure**: 400 Bad Request if content is missing, 500 Internal Server Error
 
 - **`GET /v1/task`**: Retrieve a specific task by ID
-  - **Example URL**: `http://localhost:8080/v1/task?id=1`
+  - **Example URL**: `http://localhost:8080/v1/tasks/1`
   - **Expected Responses**:
     - **Success**: 200 OK, JSON of the task
     - **Failure**: 400 Bad Request if ID is missing or invalid, 404 Not Found if task is not found
 
 - **`PUT /v1/toggleComplete`**: Toggle the completion status of a task
-  - **Example URL**: `http://localhost:8080/v1/toggleComplete?id=1`
+  - **Example URL**: `http://localhost:8080/v1/toggleComplete/1`
   - **Expected Responses**:
     - **Success**: 200 OK, JSON of the updated task
     - **Failure**: 400 Bad Request if ID is missing or invalid, 404 Not Found if task is not found
 
 - **`DELETE /v1/deleteTask`**: Delete a task by ID
-  - **Example URL**: `http://localhost:8080/v1/deleteTask?id=1`
+  - **Example URL**: `http://localhost:8080/v1/deleteTask/1`
   - **Expected Responses**:
     - **Success**: 204 No Content
     - **Failure**: 400 Bad Request if ID is missing or invalid, 404 Not Found if task is not found
 
 - **`PUT /v1/updateTask`**: Update a task's content by ID
-  - **Example URL**: `http://localhost:8080/v1/updateTask?id=1&content=Updated%20Task`
+  - **Example URL**: `http://localhost:8080/v1/updateTask/1&content=Updated%20Task`
   - **Expected Responses**:
     - **Success**: 200 OK, JSON of the updated task
     - **Failure**: 400 Bad Request if ID or content is missing or invalid, 404 Not Found if task is not found
@@ -60,6 +60,6 @@ The following API endpoints are available:
 
 ### Todo
 - [ ] add logging
-- [ ] add some tests
+- [X] add some tests
 - [ ] add real database
 

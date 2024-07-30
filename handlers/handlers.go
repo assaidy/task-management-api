@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/assaidy/task-manager-api/repo"
+	"github.com/gorilla/mux"
 )
 
 // writeErrorResponse writes an error message to the HTTP response
@@ -44,13 +45,13 @@ func HandleCreateNewTask(w http.ResponseWriter, r *http.Request) {
 
 // HandleGetTask handles GET requests to retrieve a task by ID
 func HandleGetTask(w http.ResponseWriter, r *http.Request) {
-	idQuery := r.URL.Query().Get("id")
-	if idQuery == "" {
-		writeErrorResponse(w, "Id is required", http.StatusBadRequest)
+	idStr, ok := mux.Vars(r)["id"]
+	if !ok {
+		writeErrorResponse(w, "Task ID is missing in parameters", http.StatusBadRequest)
 		return
 	}
 
-	id, err := strconv.Atoi(idQuery)
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		writeErrorResponse(w, "Id is not a valid number", http.StatusBadRequest)
 		return
@@ -67,13 +68,13 @@ func HandleGetTask(w http.ResponseWriter, r *http.Request) {
 
 // HandleToggleComplete handles POST requests to toggle the completion status of a task
 func HandleToggleComplete(w http.ResponseWriter, r *http.Request) {
-	idQuery := r.URL.Query().Get("id")
-	if idQuery == "" {
-		writeErrorResponse(w, "Id is required", http.StatusBadRequest)
+	idStr, ok := mux.Vars(r)["id"]
+	if !ok {
+		writeErrorResponse(w, "Task ID is missing in parameters", http.StatusBadRequest)
 		return
 	}
 
-	id, err := strconv.Atoi(idQuery)
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		writeErrorResponse(w, "Id is not a valid number", http.StatusBadRequest)
 		return
@@ -90,13 +91,13 @@ func HandleToggleComplete(w http.ResponseWriter, r *http.Request) {
 
 // HandleDeleteTask handles DELETE requests to delete a task by ID
 func HandleDeleteTask(w http.ResponseWriter, r *http.Request) {
-	idQuery := r.URL.Query().Get("id")
-	if idQuery == "" {
-		writeErrorResponse(w, "Id is required", http.StatusBadRequest)
+	idStr, ok := mux.Vars(r)["id"]
+	if !ok {
+		writeErrorResponse(w, "Task ID is missing in parameters", http.StatusBadRequest)
 		return
 	}
 
-	id, err := strconv.Atoi(idQuery)
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		writeErrorResponse(w, "Id is not a valid number", http.StatusBadRequest)
 		return
@@ -113,20 +114,21 @@ func HandleDeleteTask(w http.ResponseWriter, r *http.Request) {
 
 // HandleUpdateTask handles PUT requests to update a task by ID
 func HandleUpdateTask(w http.ResponseWriter, r *http.Request) {
-	idQuery := r.URL.Query().Get("id")
-	contentQuery := r.URL.Query().Get("content")
-	if idQuery == "" {
-		writeErrorResponse(w, "Id is required", http.StatusBadRequest)
-		return
-	}
-	if contentQuery == "" {
-		writeErrorResponse(w, "Content is required", http.StatusBadRequest)
+	idStr, ok := mux.Vars(r)["id"]
+	if !ok {
+		writeErrorResponse(w, "Task ID is missing in parameters", http.StatusBadRequest)
 		return
 	}
 
-	id, err := strconv.Atoi(idQuery)
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		writeErrorResponse(w, "Id is not a valid number", http.StatusBadRequest)
+		return
+	}
+
+	contentQuery := r.URL.Query().Get("content")
+	if contentQuery == "" {
+		writeErrorResponse(w, "Content is required", http.StatusBadRequest)
 		return
 	}
 
@@ -144,4 +146,3 @@ func HandleDeleteAllTasks(w http.ResponseWriter, r *http.Request) {
 	repo.DeleteAllTasks()
 	w.WriteHeader(http.StatusNoContent)
 }
-
