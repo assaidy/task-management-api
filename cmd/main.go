@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/assaidy/task-manager-api/router"
+)
+
+const PORT = ":8080"
 
 func main() {
-    fmt.Println("Hello, World")
+	router := router.GetRouter()
+
+	fmt.Printf("[INFO] Starting server at port %s...\n", PORT)
+
+	log.Fatal(http.ListenAndServe(PORT, router))
 }

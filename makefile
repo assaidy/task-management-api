@@ -1,4 +1,4 @@
-BINARY_NAME=todo-api
+BINARY_NAME=api-server
 BIN_DIR=bin
 CMD_DIR=cmd
 MAIN_FILE=main.go
